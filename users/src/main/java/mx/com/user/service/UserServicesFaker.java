@@ -16,7 +16,7 @@ import com.github.javafaker.Faker;
 import mx.com.user.models.User;
 
 @Service
-public class UserServices {
+public class UserServicesFaker {
 
 	@Autowired
 	private Faker faker;
