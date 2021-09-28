@@ -1,5 +1,7 @@
 package mx.com.user.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,11 @@ public class UserController {
 			@RequestParam(required = false, defaultValue = "0") int page,
 			@RequestParam(required = false, defaultValue = "50") int size){
 		return new ResponseEntity<Page<User>> (userService.getUsers(page, size),HttpStatus.OK);
+	}
+	
+	@GetMapping("/usernames")
+	public ResponseEntity<List<String>> getUsernames(){
+		return new ResponseEntity<List<String>> (userService.getUsernames(),HttpStatus.OK);
 	}
 	@GetMapping("/{id}")
 	public ResponseEntity<User> getUser(@PathVariable Integer id){

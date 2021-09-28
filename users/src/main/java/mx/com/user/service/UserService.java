@@ -1,5 +1,7 @@
 package mx.com.user.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,6 +20,9 @@ public class UserService {
 	
 	public Page<User> getUsers(int page, int size){
 		return userReposotory.findAll(PageRequest.of(page, size));
+	}
+	public List<String> getUsernames(){
+		return userReposotory.getUsernames();
 	}
 	
 	public User getUser(Integer id) {
