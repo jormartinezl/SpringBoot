@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import mx.com.user.entity.User;
 import mx.com.user.service.UserService;
 
@@ -33,6 +36,12 @@ public class UserController {
 	public ResponseEntity<List<String>> getUsernames(){
 		return new ResponseEntity<List<String>> (userService.getUsernames(),HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "Return a user for a given user id",response = User.class)
+	@ApiResponses(value = {
+			@ApiResponse(code = 200,message = "The record was found"),
+			@ApiResponse(code = 404,message = "The record was not found")
+	})
 	@GetMapping("/{id}")
 	public ResponseEntity<User> getUser(@PathVariable Integer id){
 		return new ResponseEntity<User> (userService.getUser(id),HttpStatus.OK);
