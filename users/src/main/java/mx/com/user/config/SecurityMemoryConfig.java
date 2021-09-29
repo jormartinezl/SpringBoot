@@ -15,7 +15,8 @@ public class SecurityMemoryConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("admin").password(encoder().encode("password")).roles("ADMIN");
+		auth.inMemoryAuthentication().withUser("admin").password(encoder().encode("password")).roles("ADMIN")
+		.and().withUser("user").password(encoder().encode("password")).roles("USER");
 	}
 	@Bean
 	public PasswordEncoder encoder() {
@@ -24,7 +25,9 @@ public class SecurityMemoryConfig extends WebSecurityConfigurerAdapter {
 	}
 	//se protege las apis de users pero las demas apis no son consumibles por que no se ah configurado nada
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeRequests().antMatchers("/users/**").hasRole("ADMIN").and().httpBasic();
+		http.csrf().disable().authorizeRequests().antMatchers("/users/**").hasRole("ADMIN")
+		.antMatchers("/roles/**").permitAll().anyRequest().authenticated()//se protege roles permite todo para cualquier persona que este autenticada
+		.and().httpBasic();
 	}
 
 	
